@@ -1,0 +1,93 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>blog.elizib.in</title>
+    <meta name="description" content="Eli Zibin is a web developer in Vancouver BC">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Open Graph: Facebook -->
+    <meta property="og:title" content="Eli Zibin ~ Web Developer">
+    <meta property="og:url" content="http://elizib.in">
+    <meta property="og:description" content="Eli Zibin is a web developer in Vancouver, BC.">
+    <!-- Twitter Cards-->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:site" content="@elizibin">
+    <meta property="twitter:title" content="Eli Zibin ~ Web Developer">
+    <meta property="twitter:description" content="Eli Zibin is a web developer in Vancouver, BC.">
+    <meta property="twitter:domain" content="http://elizib.in">
+    <link rel="shortcut icon" href="../img/favicon.ico?v=2" />
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/main.min.css">
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+    <script>
+        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <main class="bloghome container">
+        <header class="row">
+          <section class="text-center">
+            <h1><a href="http://elizib.in">{{ eli-zibin }}</a></h1>
+            <h3><span class="up">select</span> *
+                <span class="up">from</span> <span class="flourish"><a href="all">blog posts</a></span>
+                <span class="up">order by asc</span>;
+            </h3>
+            </section>
+        </header>
+        <section class="blogposts-wrapper row">
+          <ul class = "text-center ">
+            <!-- begin blogposts -->
+            <li class = "blogpost col-md-8 col-md-offset-2"><a href="Object-Relational-Mapping.html">
+              <img src="../img/orms.png" alt="Object Relational Mapping">
+              <h4>Object-Relational Mapping (ORMs)</h4>
+              <p>January 2016</p>
+              </a>
+            </li>
+            <li class = "blogpost col-md-6 col-md-offset-3"><a href="Gulp.html">
+              <img src="../img/gulp.png" alt="Gulp.js">
+              <h4>Gulp</h4>
+              <p>January 2016</p>
+              </a>
+            </li>
+          <!--  <li class = "blogpost"><a href="RegularExpressions">
+              <img src="../img/regex.jpg" alt="Regex Delivery">
+              <h4>ORM</h4>
+              <p>December 2015</p>
+              </a>
+             </li> -->
+          </ul>
+        </section>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')
+    </script>
+    <script src="js/main.min.js"></script>
+    <script>
+        (function(b, o, i, l, e, r) {
+            b.GoogleAnalyticsObject = l;
+            b[l] || (b[l] =
+                function() {
+                    (b[l].q = b[l].q || []).push(arguments)
+                });
+            b[l].l = +new Date;
+            e = o.createElement(i);
+            r = o.getElementsByTagName(i)[0];
+            e.src = 'https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e, r)
+        }(window, document, 'script', 'ga'));
+        ga('create', 'UA-55771414-8', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>
