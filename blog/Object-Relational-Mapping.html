@@ -1,0 +1,145 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>blog.elizib.in</title>
+    <meta name="description" content="Eli Zibin is a web developer in Vancouver BC">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Open Graph: Facebook -->
+    <meta property="og:title" content="Eli Zibin ~ Web Developer">
+    <meta property="og:url" content="http://elizib.in">
+    <meta property="og:description" content="Eli Zibin is a web developer in Vancouver, BC.">
+    <!-- Twitter Cards-->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:site" content="@elizibin">
+    <meta property="twitter:title" content="Eli Zibin ~ Web Developer">
+    <meta property="twitter:description" content="Eli Zibin is a web developer in Vancouver, BC.">
+    <meta property="twitter:domain" content="http://elizib.in">
+    <link rel="shortcut icon" href="../img/favicon.ico?v=2" />
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/main.min.css">
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+    <script>
+        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <main class="bloghome container">
+        <header class="row">
+            <section class="text-center">
+                <h1><a href="http://elizib.in">{{ eli-zibin }}</a></h1>
+                <h3>
+                    <span class="up">select</span> *
+                    <span class="up">from</span>
+                    <span class="flourish"><a href="all">blog posts</a></span>
+                    <span class="up">where</span> name =
+                    <br>
+                    <span class="flourish">'Object-Relational Mapping (ORM)'</span>;
+                </h3>
+            </section>
+        </header>
+        <article class="row">
+            <section class="blog-content col-md-8 col-md-offset-2">
+                <img src="../img/orms.png" alt="Object Relational Mapping" class="center-block img-repsonsive">
+                <p>Let's start with exploring the concept of Object-Relation Mapping with what the <a href="http://guides.rubyonrails.org/active_record_basics.html">Ruby on Rails Guides</a> tells us: "[ORM] is a technique that connects the rich objects of
+                    an application to tables in a relational database management system". So, in a conventional Rails app, the ORM is Active Record, and the relational database management system (RDBMS) might be something like Postgresql. Rails' Active
+                    Record is the design pattern implementation of the eponymous concept espoused by <a href="http://www.martinfowler.com/eaaCatalog/activeRecord.html">Martin Fowler</a>. This functionality lets us make queries and interac with data from
+                    a database the same way we would with objects, hence
+                    <em>object</em>-relational mapping.</p>
+                <p>The significance of ORM is that it maps the objects described and created in an application to tables and rows in the database, providing a level of abstraction from which to interac with the database with. The result of this relationship
+                    is "persistence", which enables the storage and retrieval of just such objects. As one can imagine, persistence, the successful storage and retrieval of objects, is pretty important if you want to do anything these days. The Rails
+                    Guides succinctly states: "Active Record [the ORM] facilitates the creation and use of business objects whose data requires persistent storage to a database". </p>
+                <p>One of the benefits of using an ORM like Active Record is that it standardizes the logic used to access a database by abstracting and handling the database logic for us. For example in Rails, an object inheriting from ActiveRecord::Base
+                    comes with a myriad of methods that simplifies complex database transactions and assocations. This cuts back on the amount of raw SQL code that needs to be written, streamlining this aspect of the development process. </p>
+                <p>For example: I run a mailer application on Rails that sends out a random poem every morning (sign up for a <a href="http://yoke.abcdefghijklnmoqprstuvw.xyz/">poem a day</a> if you like) that has a number of Reader objects. With the help
+                    of Active Record, the creation of a Reader object can be as simple as: </p>
+                <pre class="code-snippet line-numbers">
+                    <code class="language-ruby">
+Reader.create(name: "Ovid", email: "metamorphoses@gmail.com")
+                    </code>
+                  </pre>
+                <p>But if we watch the logs as this happens, Active Record is handling the actual SQL statement for us: </p>
+                <pre class="code-snippet line-numbers">
+                    <code class="language-sql">
+INSERT INTO "readers" ("name", "email", "created_at", "updated_at")
+VALUES ($1, $2, $3, $4) RETURNING "id" [["name", "Ovid"], ["email", "metamorphoses@gmail.com"],
+["created_at", "2016-01-06 20:47:56.440566"], ["updated_at", "2016-01-06 20:47:56.440566"]]</code>
+                </pre>
+                <p>What we see here is ORM in action. Active Record maps the class Reader to a table in the database and then inserts a row into the table containing the information of the object created: the name, email, id, timestamps etc.</p>
+                <p>Without ORM, basic create, read, update, delete, (CRUD) processes would be brittler, messier and more difficult to implement and test. Active Record simplifies database interactions, if one needs basic CRUD utilities or more advanced things,
+                    like validations and creating relationship between tables.</p>
+                <p>For example, two other important things that Active Record handles for us are validations and relationships between tables (assocations). In this next snippet, the Reader model is associated to a Book model through a has_many association
+                    provided by Active Record. This association tells us that instances of the Book class will have a foreign key that refers to instances of this Reader class. This is known as a
+                    <em>join</em> in SQL parlance. This snippet also displays a number of validation conditions that must be met before the object will be saved to the database. Validations are important because they ensure the integrity of your data is what
+                    you expect it to be; the example here ensures one's email address is a valid address with a regex coupled with callback.</p>
+                <pre class="code-snippet line-numbers">
+                    <code class="language-ruby">
+  class Reader < ActiveRecord::Base
+  before_save :downcase_email
+  has_many :books
+
+  validates :name, presence: true, length: { maximum: 50 }
+  VALID_EMAIL_REGEX=/ \A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  validates :email, presence: true, length: { maximum: 255 },
+            format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+
+  private
+       def downcase_email
+        self.email = email.downcase
+       end
+  end </code>
+                </pre>
+                <p>In sum, ORM mediates an application's objects, their storage, retrieval, and relationships within a database, allowing us to treat stored data in an object-oriented manner. The Ruby on Rails ORM
+                    <strong>Active Record</strong> is described to:
+                    <br>
+                    <strong>"Represent models and their data"</strong>. We see this when a Class is mapped to a table, and its objects are mapped to rows with columns representing their attributes. Active Record returns representations of these objects to us
+                    when we request them.
+                    <br>
+                    <strong>"Represent associations between these models".</strong> We see this when we perform associations like has_many or belongs_to.
+                    <br>
+                    <strong>"Represent inheritance hierarchies through related models".</strong> I'm not really sure what the difference is between an association and an inheritance hierarchy - I'll write more about this when I get to talking about single table
+                    inheritance in the next few weeks.
+                    <br>
+                    <strong>"Validate models before they get persisted to the database".</strong> We see this when we use validations and callbacks, like validates and before_create.
+                    <br>
+                    <strong>"Perform database operations in an object-oriented fashion".</strong> We see this with the ease we have when performing basic CRUD operations, as well as when access attributes of objects, such as in the case: </p>
+                <pre class="code-snippet line-numbers">
+                    <code class="language-ruby">
+  puts Reader.name # Ovid
+                    </code>
+                </pre>
+            </section>
+        </article>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')
+    </script>
+    <script src="js/main.min.js"></script>
+    <script>
+        (function(b, o, i, l, e, r) {
+            b.GoogleAnalyticsObject = l;
+            b[l] || (b[l] =
+                function() {
+                    (b[l].q = b[l].q || []).push(arguments)
+                });
+            b[l].l = +new Date;
+            e = o.createElement(i);
+            r = o.getElementsByTagName(i)[0];
+            e.src = 'https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e, r)
+        }(window, document, 'script', 'ga'));
+        ga('create', 'UA-55771414-8', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>
