@@ -997,15 +997,16 @@ i:hover {
 .blog-content {
     font-family: "Avenir", sans-serif;
     margin-top: 5%;
+    /*background-color: white;*/
 }
 .blog-content p {
     border-radius: 4px;
     line-height: 1.75em;
     background-color: white;
-    padding: 25px;
+    padding: 50px;
     margin-top: 55px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    font-size: 1.35em;
+    font-size: 1.45em;
     /*text-indent: 5px;*/
 }
 .blog-content a {
