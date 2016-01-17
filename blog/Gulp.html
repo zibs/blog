@@ -49,48 +49,20 @@
         <article class="row">
             <section class="blog-content col-md-8 col-md-offset-2">
                 <img src="../img/gulp.png" alt="Object Relational Mapping" class="center-block img-repsonsive title-image">
-                <p>Gulp is a "streaming build system". I'm going to talk about that word "streaming" later, but first, as a "build system" it take cares of tedious, repetitive tasks such as minification, ulgififcation, concatenation, image optimization, and other xyz-ation tasks, to name just a few I've started using already. </p>
+                <p><a href="http://gulpjs.com/">Gulp</a> is a "streaming build system". I'll talk about that word "streaming" later on, but first, as a "build system" Gulp  take cares of tedious, repetitive tasks such as minification, ulgification, concatenation, image optimization, and other xyz-ation tasks, to name just a few I've started using already. </p>
                 <p>Gulp is a <a href="https://www.npmjs.com/">npm</a> package, and is going to make developing things far easier for me now. Even with a basic Gulp file like </p>
-                <pre class="code-snippet line-numbers">
-                    <code class="language-javascript">// gulpfile.js
-
-    var gulp = require('gulp');
-    var gutil = require('gulp-util');
-    var browserSync = require('browser-sync');
-
-    gulp.task('watch', ['browserSync'], function (){
-      gulp.watch('app/**/*.html', browserSync.reload);
-      gulp.watch('app/css/**/*.css', browserSync.reload);
-      gulp.watch('app/js/**/*.js', browserSync.reload);
-    })
-
-                    </code>
-                </pre>
+                <script src="https://gist.github.com/zibs/ae9fb3750ad09e4fa06d.js"></script>
                 <p>and the simple command </p>
-                <pre class="code-snippet">
-                    <code class="language-bash">  $ gulp watch</code>
-</pre>
+              <script src="https://gist.github.com/zibs/31faea82950693f6c503.js"></script>
                 <p>I no longer have to press cmd+r to refresh the page and view any changes, as Gulp watches for modifications to any css/html/js files in my development "app" directory, thanks to <a href="https://github.com/isaacs/node-glob">node globbing</a>. I save a simple thumb movement and two seconds of time. Fun. </p>
                 <p>A simple tutorial that covers this and other useful features is over at <a href="https://css-tricks.com/gulp-for-beginners/">css-tricks</a>.</p>
                 <p>This tutorial shows how to set up basic tasks like pre-processing of assets so you can write <a href="http://sass-lang.com/">Sass</a> instead of css, as well as things like image optimization and uglification. I've just started using Gulp, and so there's lots of other things I'm sure I'll be using Gulp for in the next few weeks. </p>
                 <p>Back to that word: "streaming". It looks like it is a concept related to the Unix philosophy of <a href="http://www.faqs.org/docs/artu/ch01s06.html">Do One Thing Well</a>. This is a concept that privileges the definition of small, modular components, and endowing them each with the ability to work together. The opposite is the creation of gargantuan, sprawling solutions that are more difficult to define and maintain. The DOT philosophy (do one thing) also encourages a <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a> allowing for well-defined scopes for each component. </p>
-                <p>This can be grapsed easily with how Gulp operates. Each task we wish to perform requires its own separate package. Ulgification is left to the "gulp-uglify" package and so on. The way that these programs combine, say uglification before concatenation however, is through a stream. In Gulp, the concept of the stream is implemented through the Node's .pipe() function. This pipe function is similar to the shell command that feeds the output of one command into the input of another.</p>
+                <p>This can be grasped easily with how Gulp operates. Each task we wish to perform requires its own separate package. Ulgification is left to the "gulp-uglify" package and so on. The way that these programs combine, say uglification before concatenation however, is through a stream. In Gulp, the concept of the stream is implemented through the Node's .pipe() function. This pipe function is similar to the shell command that feeds the output of one command into the input of another.</p>
                 <p>So for example, for this site I use the gulp-useref package to generate properly ordered assets from references in my html: </p>
-                <pre class="code-snippet line-numbers">
-                    <code class="language-javascript">// gulpfile.js
+<script src="https://gist.github.com/zibs/a97d0e9a0bf15fee59c8.js"></script>
 
-    var gulp = require('gulp');
-    var useref = require('gulp-useref');
-    var gulpIf = require('gulp-if');
-    var uglify = require('gulp-uglify');
-
-    gulp.task('useref', function(){
-      return gulp.src('app/**/*.html')
-        .pipe(useref())
-        .pipe(gulpIf('*.js', uglify()))
-        .pipe(gulp.dest('dist'))
-    });</code>
-</pre>          <p>Here we can see the concept of the steam in action. The input src is passed a path, a "readable source stream", which the .pipe() fx takes and runs various functions with, here uglifying my javascript and concatenating my css, and then outputs them to a given destination. In this case, the production folder "dist".</p>
+                       <p>Here we can see the concept of the steam in action. The input src is passed a path, a "readable source stream", which the .pipe() fx takes and runs various functions with, here uglifying my javascript and concatenating my css, and then outputs them to a given destination. In this case, the production folder "dist".</p>
               <p>I'm sure this is the most basic of streams. But I'm excited to integrate Gulp into my workflow, and learn more about streams, in particular the idea of I/O in node being asynchronous is something I will have to look further into as well... </p>
 
             </section>
