@@ -722,12 +722,13 @@ i:hover {
 }
 .blog-content p {
   border-radius: 4px;
-  line-height: 1.75em;
+  line-height: 1.35em;
   background-color: white;
   padding: 50px;
   margin-top: 55px;
+  margin-bottom: 25px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  font-size: 1.65em;
+  font-size: 1.5em;
   /*text-indent: 5px;*/
 }
 .blog-content a {
