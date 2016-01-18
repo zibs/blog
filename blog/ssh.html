@@ -1,0 +1,88 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>blog.elizib.in</title>
+    <meta name="description" content="Eli Zibin is a web developer in Vancouver BC">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Open Graph: Facebook -->
+    <meta property="og:title" content="Eli Zibin ~ Web Developer">
+    <meta property="og:url" content="http://elizib.in">
+    <meta property="og:description" content="Eli Zibin is a web developer in Vancouver, BC.">
+    <!-- Twitter Cards-->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:site" content="@elizibin">
+    <meta property="twitter:title" content="Eli Zibin ~ Web Developer">
+    <meta property="twitter:description" content="Eli Zibin is a web developer in Vancouver, BC.">
+    <meta property="twitter:domain" content="http://elizib.in">
+    <link rel="shortcut icon" href="../img/favicon.ico?v=2" />
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/main.min.css">
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+    <script>
+        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <main class="bloghome container">
+        <header class="row">
+          <section class="text-center">
+            <h1><a href="../index">{{ eli-zibin }}</a></h1>
+            <h3><span class="up">select</span> *
+                  <span class="up">from</span> <span class="flourish"><a href="all.html">blog posts</a></span>
+                <span class="up">where</span> name = <span class="flourish">'SSHing'</span>;
+            </h3>
+            </section>
+        </header>
+
+        <article class="row">
+          <section class="blog-content col-md-8 col-md-offset-2">
+<p> SSH - secure shell - is a protocol and mechanism which enables cryptographically secured connections. It allows, among other things, secured and encrypted remote logins -  after establishing  authentication through a number of different encryption processes and handshakes - to other servers. After securing a connection with a remote server, I can then safely run shell commands within that server, in the case of using a Digital Ocean <a href="https://www.digitalocean.com">droplet</a>, or in the case of <a href="https://github.com/">Github</a>, push files to remote repositories from my local device, without having to provide a username and password. </p>
+
+<p><a href="https://www.digitalocean.com/community/tutorials/understanding-the-ssh-encryption-and-connection-process">Digital Ocean</a>  (DO) has a good tutorial on explaining a number of these processes. The SSH mechanism is said to work analogously to the server/client model. This means that there is a two-way movement in the transaction: the server awaits a request - listening on a specified port (usually 22, although DO recommends as best practice changing this) - from the client, while the client issues the request to authenticate. This transaction contains a number of complicated algorithmic interactions in order to both verify the client's and server's credentials. </p>
+
+<p>DO lists three different cryptographic techniques that ssh uses. The first of which uses <strong><em>symmetric keys</em></strong>. Symmetric keys encrypt the totality of an SSH session - those public/private keys we generate are only used as part of authentication. Both the client and the server work together to create this symmetric key. They do so by sharing "certain pieces of public data and manipulating them with certain secret data" in order to derive a symmetric key. However, it sounds like that this symmetric key is generated in part from the public keys that each part brings to the transaction. </p>
+<p>The entire process is later referred to as a variation on the <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Diffie-Hellman key exechange</a> which goes something like this (courtesty of DO):
+<img src="../img/diffie-hellman.png" alt="Diffie-Hellman Key Exchange --" class  = "img-responsive center-block"> Part of this process is in part similar to the second technique of SSH, which is asymmetrical encryption.</p>
+  <p><strong><em>Asymmetrical encryption</em></strong> is the public/private key relationship (and what I am most familiar with). It consists of a public and private key in which the mathematical relationship between the two allows the private key to encrypt and decrypt messages received and sent from the public key. This allows the public key to be shared publicly, putting it in a github account, or a digital ocean account, for example. In doing so, the public key acts as a filter for the private key to encrypt data in a unilateral direction. This means that the public key is unable to decrypt any messages it writes or receives unless the private key gets ahold of it. Do not put your private key on github. Do not put your private key in a private repository on github, either.  </p>
+  <p> Asymmetrical keys are used in the process of authentication when attempting to SSH into a server. The public key of a client is placed on the desired server, (in the ./ssh directory of 'authorized_keys') and when the client makes a request, if it is able to decrypt the public key, it demonstrates the client holds the private key (which is why it must be kept private), and is authenticated :)  </p>
+
+
+<p>So, the entire process resembles something like this: I make a request to a remote server. The server checks if my public key ID is in the authorized_keys file in the /.ssh directory. If it is, the server encrypts a randomly generated integer using the public key associated with the ID I've sent the server, and sends it back to me. Since I have the private key, I am able to decrypt this message (this is why the private key is essential, since without it I couldn't move past this step). My computer then uses the decrypted number, combined with the symmetrical key already encrypting this transaction to create an MD5 hash of the number (I haven't talked, or learned much about hashing yet, and will return to this in a future post). For now, the important difference between a hashed number and an encrypted number is that a hash digest is meant to be <em>irreversible</em>, while something <em>encrypted</em> is intended to be decrypted at some later point. Anyways, I send this hashed value back to the server, which in the meantime has undergone the same process. The server then compares the resulting hashes, and if they match, this means I was able to decrypt the first number sent to me by the server with my private key. And so I'm authenticated. Woosh. It's a bit of a multi-step process, and I think Digital Ocean does a great job summarizing it here with this sequence: (thanks again to DO for all this information)<img src="../img/ssh-full.png" alt="Digital Ocean SSH summary" class = "img-responsive center-block"> </p>
+          </section>
+
+    </main>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')
+    </script>
+    <script src="../js/main.min.js"></script>
+    <script>
+        (function(b, o, i, l, e, r) {
+            b.GoogleAnalyticsObject = l;
+            b[l] || (b[l] =
+                function() {
+                    (b[l].q = b[l].q || []).push(arguments)
+                });
+            b[l].l = +new Date;
+            e = o.createElement(i);
+            r = o.getElementsByTagName(i)[0];
+            e.src = 'https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e, r)
+        }(window, document, 'script', 'ga'));
+        ga('create', 'UA-55771414-8', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>
