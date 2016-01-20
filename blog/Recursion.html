@@ -1,0 +1,84 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>blog.elizib.in</title>
+    <meta name="description" content="Eli Zibin is a web developer in Vancouver BC">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Open Graph: Facebook -->
+    <meta property="og:title" content="Eli Zibin ~ Web Developer">
+    <meta property="og:url" content="http://elizib.in">
+    <meta property="og:description" content="Eli Zibin is a web developer in Vancouver, BC.">
+    <!-- Twitter Cards-->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:site" content="@elizibin">
+    <meta property="twitter:title" content="Eli Zibin ~ Web Developer">
+    <meta property="twitter:description" content="Eli Zibin is a web developer in Vancouver, BC.">
+    <meta property="twitter:domain" content="http://elizib.in">
+    <link rel="shortcut icon" href="../img/favicon.ico?v=2" />
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/main.min.css">
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+    <script>
+        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <main class="bloghome container">
+        <header class="row">
+          <section class="text-center">
+            <h1><a href="../index">{{ eli-zibin }}</a></h1>
+            <h3><span class="up">select</span> *
+                  <span class="up">from</span> <span class="flourish"><a href="all.html">blog posts</a></span>
+                <span class="up">where</span> name = <span class="flourish">'Recursion'</span>;
+            </h3>
+            </section>
+        </header>
+
+        <article class="row">
+          <section class="blog-content col-md-8 col-md-offset-2">
+            <img src="../img/sierpinski.png" alt="A siepinski gasket triangle - a fractal on acid" class ="center-block img-repsonsive title-image">
+          <p>Recursion is awesome. Recursion is. Recursion. Recursion is simply the process of a function repeatedly applying itself to a set of problems until some base condition is met. In other words, recursion is the repeated application of a task on a problem until a specified state is reached. To achieve this, we first define what's known as the base condition which will terminate the recursive loop that is set into motion after its definition. Then we simply define a set of repeatable processes which will reduce all other cases to the base case by using the same function. For example: </p>
+          <script src="https://gist.github.com/zibs/bc2be6a05b4fa39d3665.js"></script>
+          <p>shows how to use recursion to reverse a string as well as to return the maximum number in a given array. In both we can see the base condition defined at the beginning of the function and then we see the recursive, repeatable process that is taken in order to eventually end up at that base condition. In the former, we traverse the string until it's empty, adding the first character to the first character of the rest of the characters until its finished, and in the latter, we compare the first element with the last element and then proceed recursively, passing in the array range which resulted in the larger number from the initial comparison. </p>
+          <p>The next example uses recursion to perform a binary search. A binary search takes a sorted array, goes to middle element and tests if the number is greater than or lesser than the number being searched for. If the number is greater, it ignores the first half of the array - or vice versa - and performs this operation recursively until the number is found.</p>
+          <script src="https://gist.github.com/zibs/7b8414f4cea48e042ee9.js"></script>
+          <p>The reason that recursion, or a binary search in this case, might be useful is in terms of performance. A binary search operation is O(log N) at its worst case. A sequential search is O(N). The difference is that to search through a billion items using linear, or sequential search (a loop), versus using binary serach is the difference between eleven and a half days vs 30 milliseconds. This is a great example of when to use recursion.</p>
+          <p>Although recursion is not always the most performant operation, we can see that here with something like factorial recursion it is. The performance of recursion depends on the type of task is to be performed, as well as what language we're using, and if that language performs <a href="https://en.wikipedia.org/wiki/Tail_call">Tail Call Optimization</a> (which <a href="http://nithinbekal.com/posts/ruby-tco/">ruby doesn't by default</a>.) Ruby has a limited amount of stack memory and so will error out with a <strong>SystemStackError: stack level too deep</strong> if the method call is too complex (like say if we try recursive_factorial_tutorial(110000)). This means that Ruby continuously piles method calls onto the stack, while with TCO or Tail Call Elimination, a function which returns itself as the final step of the function does not create a new stack frame, thus saving space and so optimizing recursion. Regardless in this next example, we can see that a recursive method is still faster than using iteration. </p>
+          <script src="https://gist.github.com/zibs/0952e4ed084c70a66bc5.js"></script>
+
+          </section>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')
+    </script>
+    <script src="../js/main.min.js"></script>
+    <script>
+        (function(b, o, i, l, e, r) {
+            b.GoogleAnalyticsObject = l;
+            b[l] || (b[l] =
+                function() {
+                    (b[l].q = b[l].q || []).push(arguments)
+                });
+            b[l].l = +new Date;
+            e = o.createElement(i);
+            r = o.getElementsByTagName(i)[0];
+            e.src = 'https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e, r)
+        }(window, document, 'script', 'ga'));
+        ga('create', 'UA-55771414-8', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>
