@@ -723,7 +723,7 @@ i:hover {
 }
 .blog-content p {
   border-radius: 4px;
-  line-height: 1.35em;
+  line-height: 1.5em;
   background-color: white;
   padding: 50px;
   margin-top: 50px;
@@ -743,7 +743,9 @@ i:hover {
   margin-bottom: 25px;
   max-height: 500px;
 }
-
+.gif-here {
+  pointer-events:none;
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */

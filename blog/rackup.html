@@ -1,0 +1,87 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>blog.elizib.in</title>
+    <meta name="description" content="Eli Zibin is a web developer in Vancouver BC">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Open Graph: Facebook -->
+    <meta property="og:title" content="Eli Zibin ~ Web Developer">
+    <meta property="og:url" content="http://elizib.in">
+    <meta property="og:description" content="Eli Zibin is a web developer in Vancouver, BC.">
+    <!-- Twitter Cards-->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:site" content="@elizibin">
+    <meta property="twitter:title" content="Eli Zibin ~ Web Developer">
+    <meta property="twitter:description" content="Eli Zibin is a web developer in Vancouver, BC.">
+    <meta property="twitter:domain" content="http://elizib.in">
+    <link rel="shortcut icon" href="../img/favicon.ico?v=2" />
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/main.min.css">
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+    <script>
+        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <main class="bloghome container">
+        <header class="row">
+          <section class="text-center">
+            <h1><a href="../index">{{ eli-zibin }}</a></h1>
+            <h3><span class="up">select</span> *
+                  <span class="up">from</span> <span class="flourish"><a href="all.html">blog posts</a></span>
+                <span class="up">where</span> name = <span class="flourish">'RACK UP'</span>;
+            </h3>
+            </section>
+        </header>
+
+        <article class="row">
+          <section class="blog-content col-md-8 col-md-offset-2">
+        <img src="../img/rack-logo.png" alt="RACK powers web applications - a ruby webserver interface" class ="center-block img-repsonsive title-image">
+        <p>The consensus is that Rack is two things: <br>
+          <strong>1.</strong>Rack is a ruby gem. Specifically, Rack is a gem built atop Ruby's <a href="http://ruby-doc.org/stdlib-2.2.0/libdoc/net/http/rdoc/Net/HTTP.html">Net:HTTP library</a>. Net:HTTP is the HTTP client API for ruby. As such, Rack provides an interface for using this HTTP API in Ruby. This brings us to...<br>
+          <strong>2.</strong>Rack is a web-server interface convention. In simpler terms: "Rack provides a minimal interface between webservers that support Ruby and Ruby frameworks." This minimal interface enables easier communications between rack-compliant web-servers.</p>
+
+        <p>This makes its easy to build extremely simple web applications in ruby using rack (although, both Sinatra and Rails use rack as well). Rack's implementation is also a form of the CS concept of <a href="https://en.wikipedia.org/wiki/Middleware">Middleware</a>. At its most basic level, middleware here refers to the way rack provides "a way to filter requests and responses". These filters can involve authentication (passing login parameters to methods which can authenticate a user), authorization, caching etc. In this case, a layer of middleware can be swapped in (with the <strong>use</strong> keyword) to perform these operations, and return the necessary three element array along with the result. </p>
+        <p>At a higher level, Rack's middleware implements a <a href="http://www.cise.ufl.edu/research/ParallelPatterns/PatternLanguage/AlgorithmStructure/Pipeline.htm">pipeline design pattern</a> which emphasizes a <em><strong>separation of concerns</strong></em>. Middleware can be thought of constituting a middle ground for interactions between a client and server. A request comes in, middleware intercepts the request, reads its requirements (http headers, statuses etc) and then directs it to the appropriate place for a response.</p>
+
+        <p>Rack provides this kind of webserver interface very simply. At its absolute most basic level, a web app can run with:  </p>
+        <script src="https://gist.github.com/zibs/4092fdfd1cb473a6e8c3.js"></script>
+        <p>Here I require rack, create a class called MyApp that has a single class method named <strong>call</strong> which takes an environment as a argument and returns an array that contains three elements. This method is the bare minimum required for rack to work. The hash must return an HTTP status code, some HTTP headers, and an array which could either point to a path for which to open a file, or in this case, contains actual HTML. The last line starts a WEBrick webs-server and passes MyApp to it as an argument. </p>
+        <p>This week we started building some very basic webpages using rack to learn the more technical and underlying details before we begin working at higher levels of abstraction (with Sinatra and Rails). One app we made was a simple dictionary app. The app is meant to take a query string such as <strong>localhost:8080/?Abominable%20snowman</strong> and will return the dictionary definition, provided it exists. The funnest part of this project was working with a large text file; parsing it and creating an accesible instance variable that was still in the scope of the server, and that didn't have to get re-initialized with every request - conditional assignment saved the day</p>
+        <script src="https://gist.github.com/zibs/23c777f9da216617c793.js"></script>
+          </section>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')
+    </script>
+    <script src="../js/main.min.js"></script>
+    <script>
+        (function(b, o, i, l, e, r) {
+            b.GoogleAnalyticsObject = l;
+            b[l] || (b[l] =
+                function() {
+                    (b[l].q = b[l].q || []).push(arguments)
+                });
+            b[l].l = +new Date;
+            e = o.createElement(i);
+            r = o.getElementsByTagName(i)[0];
+            e.src = 'https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e, r)
+        }(window, document, 'script', 'ga'));
+        ga('create', 'UA-55771414-8', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>
