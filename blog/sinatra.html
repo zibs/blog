@@ -49,7 +49,7 @@
             <p><a href="http://www.sinatrarb.com/">Sinatra</a> is a ruby gem and DSL for creating web applications in Ruby. It can be thought of as a thin layer that's built on top of <a href="http://rack.github.io/">Rack</a> as it uses rack to take HTTP requests, parse it, and return the response. </p>
             <p>Using Sinatra encourages following the REST architectural style by defining routes using an HTTP method coupled with the matching URL. Sinatra also supports dynamic URLs using variables. </p>
 <script src="https://gist.github.com/zibs/68a7dcfb2f89176f5e5a.js"></script>
-            <p>Sinatra also allows us to <strong>erb</strong>, which is embedded ruby, a special templating system included with Sinatra. Simply a method that takes a symbol, which references a file name, and returns a string which contains our html. </p>
+            <p>Sinatra also allows us to <strong>erb</strong>, which is embedded ruby, a special templating system included with Sinatra. The method erb here simply is a method that takes a symbol, which references a file name and returns a string which contains our html. It can also be passed a hash specifying which layout partial to use.   </p>
 <script src="https://gist.github.com/zibs/77fdbd28942049028703.js"></script>
             <p><a href="http://rubyonrails.org/doctrine/#convention-over-configuration">Convention Over Configuration</a> allows us to make use of templating and partials (or layouts). In this case we can abstract repetitive aspects of our application into smaller recomposable files: </p>
 <script src="https://gist.github.com/zibs/9aec0cb9993d967d7e7b.js"></script>
